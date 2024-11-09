@@ -1,21 +1,88 @@
-import React from 'react';
+import { useState, useEffect, useRef } from "react";
+import logo from "../assets/logo.png";
+import subLogo from "../assets/subLogo.png";
+import "../Styles/Navbar.css";
+import { FaGlobe, FaBars, FaUser } from "react-icons/fa";
+import SmallSearchBar from "./SmallSearchBar";
 
 const Navbar = () => {
+  const [hover, setHover] = useState(false);
+  const [isLinksVisible, setIsLinksVisible] = useState(true);
+  const menuRef = useRef(null);
+
+  const toggleHover = () => {
+    setHover((prevHover) => !prevHover);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setHover(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 1) {
+        setIsLinksVisible(false);
+      } else {
+        setIsLinksVisible(true);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="flex items-center justify-between p-4 border-b">
-      <div className="flex items-center">
-        <img src="Images\download (4).png" alt="Airbnb logo" className="mr-2" />
-        <span className="text-2xl font-bold text-red-500">airbnb</span>
+    <nav>
+      <div className="logo">
+        <img src={logo} alt="logo" />
       </div>
-      <nav className="flex items-center space-x-4">
-        <a href="#" className="text-gray-700 font-medium">Stays</a>
-        <a href="#" className="text-gray-700">Experiences</a>
-        <a href="#" className="text-gray-700">Airbnb your home</a>
-        <i className="fas fa-globe text-gray-700"></i>
-        <i className="fas fa-bars text-gray-700"></i>
-        <i className="fas fa-user-circle text-gray-700"></i>
-      </nav>
-    </header>
+      <div className="subLogo">
+        <img src={subLogo} alt="" />
+      </div>
+      {isLinksVisible && (
+        <div className="links">
+          <ul>
+            <li>
+              <a href="#">Stays</a>
+            </li>
+            <li>
+              <a href="#">Experience</a>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {!isLinksVisible && <SmallSearchBar />}
+
+      <div className="user" ref={menuRef}>
+        <p className="para">Airbnb your home</p>
+        <span className="glob">
+          <FaGlobe size={16} />
+        </span>
+        <div className="menu" onClick={toggleHover}>
+          <FaBars />
+          <FaUser className="user-icon" size={30} color="white" />
+        </div>
+        {hover && (
+          <div className="hover">
+            <p>Sign Up</p>
+            <p>Login</p>
+            <hr />
+            <p>Gift Cards</p>
+            <p>Airbnb your home</p>
+            <p>Host an experience</p>
+            <p>Help Center</p>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 };
 
