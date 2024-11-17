@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import cardData from "../cards.js";
 import { FaStar } from "react-icons/fa";
 import "../Styles/Cards.css";
@@ -6,22 +6,6 @@ import { Link } from 'react-router-dom';
 
 const Cards = () => {
   const [cards, setCards] = useState(cardData);
-
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await fetch(cardData);
-        const data = await response.json();
-        setCards(data);
-
-        setCards(cardData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCards();
-  }, []);
 
   return (
     <div className="cards">
