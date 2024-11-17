@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import cardData from "../cards.js";
 import { FaStar } from "react-icons/fa";
 import "../Styles/Cards.css";
+import { Link } from 'react-router-dom';
 
 const Cards = () => {
   const [cards, setCards] = useState(cardData);
@@ -34,9 +35,10 @@ const Cards = () => {
               {card.rating}
             </p>
           </div>
-          <p className="property">{card.distance} kilometeres away</p>
+          <p className="property">{card.distance} kilometers away</p>
           <p className="property">{card.data}</p>
           <p className="price">${card.price} night</p>
+          <Link to={`/listings/${card.id}`}>View Details</Link>
         </div>
       ))}
     </div>

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Paris, France",
+    "img": "https://a0.muscache.com/im/pictures/miso/Hosting-631154213461762756/original/9e1dc69d-c64f-4052-8dad-6f089fa04b6e.jpeg?im_w=720",
+    "type": "Apartment",
+    "amenities": ["WiFi", "Kitchen", "Heating"],
+    "guests": 4,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 2530
+  }
+
+] 
